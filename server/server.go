@@ -16,8 +16,8 @@ import (
 )
 
 var (
-	port       = flag.Int("port", 9090, "The server port")
-	chainFile  = flag.String("chain_info_file", "testdata/chaininfo.json", "A json file containing bc info")
+	port      = flag.Int("port", 9090, "The server port")
+	chainFile = flag.String("chain_info_file", "testdata/chaininfo.json", "A json file containing bc info")
 )
 
 type blockChainServer struct {
@@ -29,11 +29,16 @@ func (s *blockChainServer) GetChaininfo(ctx context.Context, em *pb.EmptyMsg) (*
 	return s.savedChaininfo, nil
 }
 
-func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.Id) (*pb.Transaction, error) {
+func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.MsgId) (*pb.Transaction, error) {
 	var t = new(pb.Transaction)
 	t.HeaderSignature = "xxxxxxxxxxxxx"
 	t.Id = em.Id
 	return t, nil
+}
+
+func (s *blockChainServer) GetUnconfirmedTransactionList(ctx context.Context, em *pb.EmptyMsg) (*pb.TransactionList, error) {
+	var txs = new(pb.TransactionList)
+	return txs, nil
 }
 
 // loadChaininfo loads chain from a JSON file.

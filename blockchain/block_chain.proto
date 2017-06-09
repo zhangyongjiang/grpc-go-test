@@ -15,14 +15,20 @@ service BlockChain {
     };
   }
 
-  rpc GetTransaction(Id) returns (Transaction) {
+  rpc GetTransaction(MsgId) returns (Transaction) {
     option (google.api.http) = {
-      get: "/transaction/{id}"
+      get: "/transaction/by-id/{id}"
+    };
+  }
+
+  rpc GetUnconfirmedTransactionList(EmptyMsg) returns (TransactionList) {
+    option (google.api.http) = {
+      get: "/transaction/unconfirmed"
     };
   }
 }
 
-message Id {
+message MsgId {
   string id = 1;
 }
 
