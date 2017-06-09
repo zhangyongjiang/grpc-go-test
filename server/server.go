@@ -12,7 +12,7 @@ import (
 
 	"google.golang.org/grpc/grpclog"
 
-	pb "google.golang.org/grpc/examples/block_chain/blockchain"
+	pb "github.com/zhangyongjiang/grpc-go-test/blockchain"
 )
 
 var (
@@ -27,6 +27,12 @@ type blockChainServer struct {
 // GetChaininfo returns the chaininfo.
 func (s *blockChainServer) GetChaininfo(ctx context.Context, em *pb.EmptyMsg) (*pb.Chaininfo, error) {
 	return s.savedChaininfo, nil
+}
+
+func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.EmptyMsg) (*pb.Transaction, error) {
+	var t = new(pb.Transaction)
+	t.HeaderSignature = "xxxxxxxxxxxxx"
+	return t, nil
 }
 
 // loadChaininfo loads chain from a JSON file.

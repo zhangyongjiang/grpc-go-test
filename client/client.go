@@ -5,8 +5,8 @@ import (
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	pb "google.golang.org/grpc/examples/block_chain/blockchain"
 	"google.golang.org/grpc/grpclog"
+	pb "github.com/zhangyongjiang/grpc-go-test/blockchain"
 )
 
 var (
@@ -19,9 +19,17 @@ func printChaininfo(client pb.BlockChainClient, em *pb.EmptyMsg) {
 	grpclog.Printf("Getting chaininfo")
 	chaininfo, err := client.GetChaininfo(context.Background(), em)
 	if err != nil {
-		grpclog.Fatalf("%v.GetFeatures(_) = _, %v: ", client, err)
+		grpclog.Fatalf("%v.GetChaininfo(_) = _, %v: ", client, err)
 	}
 	grpclog.Println(chaininfo)
+}
+
+func printTransaction(client pb.BlockChainClient, em *pb.EmptyMsg) {
+	tran, err := client.GetTransaction(context.Background(), em)
+	if err != nil {
+                grpclog.Fatalf("%v.GetTransaction(_) = _, %v: ", client, err)
+        }
+        grpclog.Println(tran)
 }
 
 func main() {
@@ -36,5 +44,6 @@ func main() {
 	client := pb.NewBlockChainClient(conn)
 
 	printChaininfo(client, &pb.EmptyMsg{})
+	printTransaction(client, &pb.EmptyMsg{})
 
 }

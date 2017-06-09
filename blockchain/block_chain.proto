@@ -11,8 +11,13 @@ import "google/api/annotations.proto";
 service BlockChain {
   rpc GetChaininfo(EmptyMsg) returns (Chaininfo) {
     option (google.api.http) = {
-      post: "/chain-info"
-      body: "*"
+      get: "/chain-info"
+    };
+  }
+
+  rpc GetTransaction(EmptyMsg) returns (Transaction) {
+    option (google.api.http) = {
+      get: "/transaction"
     };
   }
 }
@@ -23,4 +28,55 @@ message Chaininfo {
 }
 
 message EmptyMsg {}
+
+message TransactionHeader {
+
+    string nonce =1;
+
+    string txid = 2;
+
+    string type  = 3;
+
+}
+
+message Transaction {
+
+    bytes header =1;
+
+    string header_signature =2;
+
+    bytes  payload = 3;
+}
+
+message TransactionList {
+
+    repeated Transaction transactions =1;
+
+}
+
+message BlockHeader {
+
+    int32 height = 1;
+
+    string previous_block_hash =2;
+
+    int32 transaction_count = 3;
+
+    int32 version = 4;
+
+    int32 timestamp = 5;
+
+    string state_root_hash = 6;
+}
+
+message Block {
+
+    bytes header = 1;
+
+    string header_signature = 2;
+
+    repeated Transaction transactions =3;
+
+}
+
 
