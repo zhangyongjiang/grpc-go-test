@@ -9,7 +9,7 @@ import (
   "github.com/grpc-ecosystem/grpc-gateway/runtime"
   "google.golang.org/grpc"
 	
-  gw "google.golang.org/grpc/examples/block_chain/blockchain"
+  gw "github.com/zhangyongjiang/grpc-go-test/blockchain"
 )
 
 var (
