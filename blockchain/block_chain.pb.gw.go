@@ -39,8 +39,26 @@ func request_BlockChain_GetChaininfo_0(ctx context.Context, marshaler runtime.Ma
 }
 
 func request_BlockChain_GetTransaction_0(ctx context.Context, marshaler runtime.Marshaler, client BlockChainClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmptyMsg
+	var protoReq Id
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+	}
+
+	protoReq.Id, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, err
+	}
 
 	msg, err := client.GetTransaction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -141,7 +159,7 @@ func RegisterBlockChainHandler(ctx context.Context, mux *runtime.ServeMux, conn 
 var (
 	pattern_BlockChain_GetChaininfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"chain-info"}, ""))
 
-	pattern_BlockChain_GetTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"transaction"}, ""))
+	pattern_BlockChain_GetTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"transaction", "id"}, ""))
 )
 
 var (

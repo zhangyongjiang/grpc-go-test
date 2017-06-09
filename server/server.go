@@ -29,9 +29,10 @@ func (s *blockChainServer) GetChaininfo(ctx context.Context, em *pb.EmptyMsg) (*
 	return s.savedChaininfo, nil
 }
 
-func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.EmptyMsg) (*pb.Transaction, error) {
+func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.Id) (*pb.Transaction, error) {
 	var t = new(pb.Transaction)
 	t.HeaderSignature = "xxxxxxxxxxxxx"
+	t.Id = em.Id
 	return t, nil
 }
 

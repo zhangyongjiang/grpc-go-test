@@ -15,11 +15,15 @@ service BlockChain {
     };
   }
 
-  rpc GetTransaction(EmptyMsg) returns (Transaction) {
+  rpc GetTransaction(Id) returns (Transaction) {
     option (google.api.http) = {
-      get: "/transaction"
+      get: "/transaction/{id}"
     };
   }
+}
+
+message Id {
+  string id = 1;
 }
 
 message Chaininfo {
@@ -40,12 +44,13 @@ message TransactionHeader {
 }
 
 message Transaction {
+    string id = 1;
 
-    bytes header =1;
+    bytes header =2;
 
-    string header_signature =2;
+    string header_signature =3;
 
-    bytes  payload = 3;
+    bytes  payload = 4;
 }
 
 message TransactionList {
