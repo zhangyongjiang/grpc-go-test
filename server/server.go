@@ -56,6 +56,12 @@ func (s *blockChainServer) loadChaininfo(filePath string) {
 	}
 }
 
+func (s *blockChainServer) GetBlock(ctx context.Context, em *pb.MsgId) (*pb.Block, error) {
+	var t = new(pb.Block)
+	t.HeaderSignature = "head sig here"
+	return t, nil
+}
+
 func newServer() *blockChainServer {
 	s := new(blockChainServer)
 	s.loadChaininfo(*chainFile)

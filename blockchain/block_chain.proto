@@ -33,6 +33,12 @@ service BlockChain {
 	  body: "*"
     };
   }
+
+  rpc GetBlock(MsgId) returns (Block) {
+    option (google.api.http) = {
+      get: "/block/by-id/{id}"
+    };
+  }
 }
 
 message MsgId {
