@@ -45,6 +45,18 @@ service BlockChain {
       get: "/block/by-height/{data}"
     };
   }
+
+  rpc GetAddress(MsgInput) returns (Address) {
+    option (google.api.http) = {
+      get: "/addrs/{data}"
+    };
+  }
+
+  rpc GetAddressBalance(MsgInput) returns (Address) {
+    option (google.api.http) = {
+      get: "/addrs/{data}/balance"
+    };
+  }
 }
 
 message MsgInput {
@@ -108,4 +120,6 @@ message Block {
 
 }
 
-
+message Address {
+	string id = 1;
+}

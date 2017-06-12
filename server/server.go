@@ -68,6 +68,18 @@ func (s *blockChainServer) GetBlockByHeight(ctx context.Context, em *pb.MsgInput
 	return t, nil
 }
 
+func (s *blockChainServer) GetAddress(ctx context.Context, em *pb.MsgInput) (*pb.Address, error) {
+	var t = new(pb.Address)
+	t.Id = em.Data
+	return t, nil
+}
+
+func (s *blockChainServer) GetAddressBalance(ctx context.Context, em *pb.MsgInput) (*pb.Address, error) {
+	var t = new(pb.Address)
+	t.Id = em.Data
+	return t, nil
+}
+
 func newServer() *blockChainServer {
 	s := new(blockChainServer)
 	s.loadChaininfo(*chainFile)
