@@ -36,6 +36,10 @@ func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.MsgId) (*p
 	return t, nil
 }
 
+func (s *blockChainServer) CreateTransaction(ctx context.Context, em *pb.Transaction) (*pb.Transaction, error) {
+	return em, nil
+}
+
 func (s *blockChainServer) GetUnconfirmedTransactionList(ctx context.Context, em *pb.EmptyMsg) (*pb.TransactionList, error) {
 	var txs = new(pb.TransactionList)
 	return txs, nil
