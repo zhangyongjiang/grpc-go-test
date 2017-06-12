@@ -98,6 +98,11 @@ func (s *blockChainServer) CallContract(ctx context.Context, em *pb.ContractReq)
 	return t, nil
 }
 
+func (s *blockChainServer) CreateHook(ctx context.Context, em *pb.Event) (*pb.Event, error) {
+	var t = new(pb.Event)
+	return t, nil
+}
+
 func newServer() *blockChainServer {
 	s := new(blockChainServer)
 	s.loadChaininfo(*chainFile)
