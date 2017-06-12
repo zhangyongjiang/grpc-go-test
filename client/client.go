@@ -24,7 +24,7 @@ func printChaininfo(client pb.BlockChainClient, em *pb.EmptyMsg) {
 	grpclog.Println(chaininfo)
 }
 
-func printTransaction(client pb.BlockChainClient, em *pb.MsgId) {
+func printTransaction(client pb.BlockChainClient, em *pb.MsgInput) {
 	tran, err := client.GetTransaction(context.Background(), em)
 	if err != nil {
 		grpclog.Fatalf("%v.GetTransaction(_) = _, %v: ", client, err)
@@ -44,6 +44,6 @@ func main() {
 	client := pb.NewBlockChainClient(conn)
 
 	printChaininfo(client, &pb.EmptyMsg{})
-	printTransaction(client, &pb.MsgId{})
+	printTransaction(client, &pb.MsgInput{})
 
 }

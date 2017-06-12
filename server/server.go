@@ -29,10 +29,10 @@ func (s *blockChainServer) GetChaininfo(ctx context.Context, em *pb.EmptyMsg) (*
 	return s.savedChaininfo, nil
 }
 
-func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.MsgId) (*pb.Transaction, error) {
+func (s *blockChainServer) GetTransaction(ctx context.Context, em *pb.MsgInput) (*pb.Transaction, error) {
 	var t = new(pb.Transaction)
 	t.HeaderSignature = "xxxxxxxxxxxxx"
-	t.Id = em.Id
+	t.Id = em.Data
 	return t, nil
 }
 
@@ -56,9 +56,15 @@ func (s *blockChainServer) loadChaininfo(filePath string) {
 	}
 }
 
-func (s *blockChainServer) GetBlock(ctx context.Context, em *pb.MsgId) (*pb.Block, error) {
+func (s *blockChainServer) GetBlockByHash(ctx context.Context, em *pb.MsgInput) (*pb.Block, error) {
 	var t = new(pb.Block)
 	t.HeaderSignature = "head sig here"
+	return t, nil
+}
+
+func (s *blockChainServer) GetBlockByHeight(ctx context.Context, em *pb.MsgInput) (*pb.Block, error) {
+	var t = new(pb.Block)
+	t.HeaderSignature = "head sig here. block by height"
 	return t, nil
 }
 

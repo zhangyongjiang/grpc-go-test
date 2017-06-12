@@ -15,9 +15,9 @@ service BlockChain {
     };
   }
 
-  rpc GetTransaction(MsgId) returns (Transaction) {
+  rpc GetTransaction(MsgInput) returns (Transaction) {
     option (google.api.http) = {
-      get: "/transaction/by-id/{id}"
+      get: "/transaction/by-id/{data}"
     };
   }
 
@@ -34,15 +34,21 @@ service BlockChain {
     };
   }
 
-  rpc GetBlock(MsgId) returns (Block) {
+  rpc GetBlockByHash(MsgInput) returns (Block) {
     option (google.api.http) = {
-      get: "/block/by-id/{id}"
+      get: "/block/by-id/{data}"
+    };
+  }
+
+  rpc GetBlockByHeight(MsgInput) returns (Block) {
+    option (google.api.http) = {
+      get: "/block/by-height/{data}"
     };
   }
 }
 
-message MsgId {
-  string id = 1;
+message MsgInput {
+  string data = 1;
 }
 
 message Chaininfo {
