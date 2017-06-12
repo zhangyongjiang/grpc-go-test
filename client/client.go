@@ -3,15 +3,15 @@ package main
 import (
 	"flag"
 
+	pb "github.com/zhangyongjiang/grpc-go-test/blockchain"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
-	pb "github.com/zhangyongjiang/grpc-go-test/blockchain"
 )
 
 var (
-	tls                = flag.Bool("tls", false, "Connection uses TLS if true, else plain TCP")
-	serverAddr         = flag.String("server_addr", "127.0.0.1:9090", "The server address in the format of host:port")
+	tls        = flag.Bool("tls", false, "Connection uses TLS if true, else plain TCP")
+	serverAddr = flag.String("server_addr", "127.0.0.1:9090", "The server address in the format of host:port")
 )
 
 // printChaininfo gets the chaininfo.
@@ -24,12 +24,12 @@ func printChaininfo(client pb.BlockChainClient, em *pb.EmptyMsg) {
 	grpclog.Println(chaininfo)
 }
 
-func printTransaction(client pb.BlockChainClient, em *pb.EmptyMsg) {
+func printTransaction(client pb.BlockChainClient, em *pb.MsgId) {
 	tran, err := client.GetTransaction(context.Background(), em)
 	if err != nil {
-                grpclog.Fatalf("%v.GetTransaction(_) = _, %v: ", client, err)
-        }
-        grpclog.Println(tran)
+		grpclog.Fatalf("%v.GetTransaction(_) = _, %v: ", client, err)
+	}
+	grpclog.Println(tran)
 }
 
 func main() {
@@ -44,6 +44,6 @@ func main() {
 	client := pb.NewBlockChainClient(conn)
 
 	printChaininfo(client, &pb.EmptyMsg{})
-	printTransaction(client, &pb.EmptyMsg{})
+	printTransaction(client, &pb.MsgId{})
 
 }

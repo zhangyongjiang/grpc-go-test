@@ -26,6 +26,13 @@ service BlockChain {
       get: "/transaction/unconfirmed"
     };
   }
+
+  rpc CreateTransaction(Transaction) returns (Transaction) {
+    option (google.api.http) = {
+      post: "/transaction/create"
+	  body: "*"
+    };
+  }
 }
 
 message MsgId {
@@ -46,7 +53,6 @@ message TransactionHeader {
     string txid = 2;
 
     string type  = 3;
-
 }
 
 message Transaction {
