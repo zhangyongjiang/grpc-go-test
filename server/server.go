@@ -80,6 +80,24 @@ func (s *blockChainServer) GetAddressBalance(ctx context.Context, em *pb.MsgInpu
 	return t, nil
 }
 
+func (s *blockChainServer) CreateContract(ctx context.Context, em *pb.Contract) (*pb.Contract, error) {
+	var t = new(pb.Contract)
+	t.Id = em.Id
+	return t, nil
+}
+
+func (s *blockChainServer) GetContract(ctx context.Context, em *pb.MsgInput) (*pb.Contract, error) {
+	var t = new(pb.Contract)
+	t.Id = em.Data
+	return t, nil
+}
+
+func (s *blockChainServer) CallContract(ctx context.Context, em *pb.ContractReq) (*pb.Contract, error) {
+	var t = new(pb.Contract)
+	t.Id = em.Addr
+	return t, nil
+}
+
 func newServer() *blockChainServer {
 	s := new(blockChainServer)
 	s.loadChaininfo(*chainFile)

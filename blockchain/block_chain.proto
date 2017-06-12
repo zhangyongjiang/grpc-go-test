@@ -57,6 +57,31 @@ service BlockChain {
       get: "/addrs/{data}/balance"
     };
   }
+
+  rpc CreateContract(Contract) returns (Contract) {
+    option (google.api.http) = {
+      post: "/contract/create"
+	  body: "*"
+    };
+  }
+
+  rpc GetContract(MsgInput) returns (Contract) {
+    option (google.api.http) = {
+      get: "/contract/{data}"
+    };
+  }
+
+  rpc CallContract(ContractReq) returns (Contract) {
+    option (google.api.http) = {
+      post: "/contract/call"
+	  body: "*"
+    };
+  }
+}
+
+message ContractReq {
+	string addr = 1;
+	string method = 2;
 }
 
 message MsgInput {
@@ -121,5 +146,9 @@ message Block {
 }
 
 message Address {
+	string id = 1;
+}
+
+message Contract {
 	string id = 1;
 }
